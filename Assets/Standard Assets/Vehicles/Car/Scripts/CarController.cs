@@ -77,14 +77,19 @@ namespace UnityStandardAssets.Vehicles.Car
             float f = Mathf.Abs(CurrentSpeed/MaxSpeed);
             float upgearlimit = (1/(float) NoOfGears)*(m_GearNum + 1);
             float downgearlimit = (1/(float) NoOfGears)*m_GearNum;
+            Debug.Log(m_GearNum  + " " + upgearlimit + " " + downgearlimit + " " + f);
 
             if (m_GearNum > 0 && f < downgearlimit)
             {
+                Debug.Log("GearChanging--");
+
                 m_GearNum--;
             }
 
             if (f > upgearlimit && (m_GearNum < (NoOfGears - 1)))
             {
+                Debug.Log("GearChanging++");
+
                 m_GearNum++;
             }
         }
