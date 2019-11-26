@@ -46,6 +46,7 @@ namespace UnityStandardAssets.Vehicles.Car
         private float m_CurrentTorque;
         private Rigidbody m_Rigidbody;
         private const float k_ReversingThreshold = 0.01f;
+        private CarAudio m_carAudio;
 
         public bool Skidding { get; private set; }
         public float BrakeInput { get; private set; }
@@ -67,11 +68,18 @@ namespace UnityStandardAssets.Vehicles.Car
 
             m_MaxHandbrakeTorque = float.MaxValue;
 
+            m_carAudio = GetComponent<CarAudio>();
             m_Rigidbody = GetComponent<Rigidbody>();
             m_CurrentTorque = m_FullTorqueOverAllWheels - (m_TractionControl*m_FullTorqueOverAllWheels);
         }
 
-
+        public void Update()
+        {
+            if(Input.GetKeyDown("space"))
+            {
+                m_carAudio.PlayCarHorn();
+            }
+        }
         private void GearChanging()
         {
             float f = Mathf.Abs(CurrentSpeed/MaxSpeed);
