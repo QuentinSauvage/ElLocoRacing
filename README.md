@@ -2,6 +2,15 @@
 
 Unity project made during the 2nd year of master
 
+## Branches
+_menu_: Modifications sur les différents menus du jeu (principal, fin de course, ...)
+_ui_: Modifications sur l'UI : HUD, écran de pause
+_car_: Modifications concernant la voiture (scripts, objets, textures, etc)
+_lap_: Modifications de la gestion des tours, checkpoints, deadzones, position du joueur
+_ia_: Modifications sur le comportement de l'ia
+_terrain_: Modifications sur la course en elle-même (décor, obstacles, ...)
+_effects_: modifications sur la luminosité et vfx (shaders, particules, ...)
+
 ## Gameplay
 - Deadzones
 - Checkpoints
