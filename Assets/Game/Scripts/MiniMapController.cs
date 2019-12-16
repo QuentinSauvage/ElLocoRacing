@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MiniMapController : MonoBehaviour
 {
-	[SerializeField] Transform m_car;
+	[SerializeField] Transform m_car = null;
 	private const float m_CameraRotation = 90f;
 
 	void LateUpdate()
