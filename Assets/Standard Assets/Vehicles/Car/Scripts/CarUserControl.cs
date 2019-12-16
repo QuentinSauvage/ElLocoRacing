@@ -4,16 +4,20 @@ using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets.Vehicles.Car
 {
-    [RequireComponent(typeof (CarController))]
+    [RequireComponent(typeof(CarController))]
+    [RequireComponent(typeof(CameraController))]
     public class CarUserControl : MonoBehaviour
     {
         private CarController m_Car; // the car controller we want to use
+        private CameraController m_Camera;
 
 
         private void Awake()
         {
             // get the car controller
             m_Car = GetComponent<CarController>();
+            // get the camera controller
+            m_Camera = GetComponent<CameraController>();
         }
 
 
@@ -22,6 +26,13 @@ namespace UnityStandardAssets.Vehicles.Car
             // pass the input to the car!
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
             float v = CrossPlatformInputManager.GetAxis("Vertical");
+
+            // pass the input to the camera
+            if (Input.GetButton("Mouse Left"))
+            {
+                m_Camera.Rotate(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+            }
+
 #if !MOBILE_INPUT
             float handbrake = CrossPlatformInputManager.GetAxis("Jump");
             m_Car.Move(h, v, v, handbrake);
