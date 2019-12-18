@@ -9,6 +9,7 @@ namespace UnityStandardAssets.Vehicles.Car
     {
         //private CarController m_Car; // the car controller we want to use
         public Camera m_mainCamera;
+        public Camera m_BackupCamera;
         public float m_RotationAngleX = 60;
         public float m_RotationAngleY = 60;
 
@@ -21,7 +22,8 @@ namespace UnityStandardAssets.Vehicles.Car
             // get the car controller
             //m_Car = GetComponent<CarController>();
             m_MaxRotationAngleX = 360 - m_RotationAngleX; 
-            m_MaxRotationAngleY = 360 - m_RotationAngleY; 
+            m_MaxRotationAngleY = 360 - m_RotationAngleY;
+            m_BackupCamera.gameObject.SetActive(false);
         }
 
         // Update is called once per frame
@@ -38,6 +40,12 @@ namespace UnityStandardAssets.Vehicles.Car
                 xMove = 0;
 
             m_mainCamera.transform.Rotate(-yMove, xMove, 0);
+        }
+
+        public void Switch(bool keyPressed)
+        {
+            m_mainCamera.gameObject.SetActive(!keyPressed);
+            m_BackupCamera.gameObject.SetActive(keyPressed);
         }
     }
 }

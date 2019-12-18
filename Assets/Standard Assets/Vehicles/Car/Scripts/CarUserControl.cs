@@ -32,6 +32,7 @@ namespace UnityStandardAssets.Vehicles.Car
             {
                 m_Camera.Rotate(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
             }
+            m_Camera.Switch(Input.GetButton("Mouse Right"));
 
 #if !MOBILE_INPUT
             float handbrake = CrossPlatformInputManager.GetAxis("Jump");
