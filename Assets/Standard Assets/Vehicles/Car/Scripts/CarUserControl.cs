@@ -8,7 +8,10 @@ namespace UnityStandardAssets.Vehicles.Car
     [RequireComponent(typeof(CameraController))]
     public class CarUserControl : MonoBehaviour
     {
-        private CarController m_Car; // the car controller we want to use
+		[SerializeField] private Renderer brakeLights;
+		[SerializeField] private Material brakeLightsOn;
+		[SerializeField] private Material brakeLightsOff;
+		private CarController m_Car; // the car controller we want to use
         private CameraController m_Camera;
 
 
@@ -20,8 +23,19 @@ namespace UnityStandardAssets.Vehicles.Car
             m_Camera = GetComponent<CameraController>();
         }
 
+		private void Update()
+		{
+			if (Input.GetKey(KeyCode.DownArrow))
+			{
+				brakeLights.material = brakeLightsOn;
+			}
+			else
+			{
+				brakeLights.material = brakeLightsOff;
+			}
+		}
 
-        private void FixedUpdate()
+		private void FixedUpdate()
         {
             // pass the input to the car!
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
