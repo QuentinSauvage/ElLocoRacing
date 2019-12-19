@@ -6501,6 +6501,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96468c245ae8e0d4f8f1c7a7b8b0542e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brakeLights: {fileID: 832857757}
+  brakeLightsOn: {fileID: 2100000, guid: 822570b9d59aeb64aadf7d06f200cede, type: 2}
+  brakeLightsOff: {fileID: 2100000, guid: 193271966d646e34f8236905354b7631, type: 2}
 --- !u!114 &251676373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9186,6 +9189,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822823840}
   m_Mesh: {fileID: 4300052, guid: e6fec471c20b9d148b1f87910e67bea4, type: 3}
+--- !u!23 &832857757 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1290095845376947983, guid: b3246030a3530ee489279502e67e413b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1622526261}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &837987099
 GameObject:
   m_ObjectHideFlags: 0
@@ -18436,6 +18445,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5f328dc9eb6fd1643a49af7945bc0813, type: 2}
+    - target: {fileID: 6462112722599303457, guid: b3246030a3530ee489279502e67e413b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9538b47371c0cba4ea8454d688287731, type: 2}
+    - target: {fileID: -1290095845376947983, guid: b3246030a3530ee489279502e67e413b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 193271966d646e34f8236905354b7631, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3246030a3530ee489279502e67e413b, type: 3}
 --- !u!1 &1640701703
