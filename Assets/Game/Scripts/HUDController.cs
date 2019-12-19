@@ -61,7 +61,7 @@ public class HUDController : MonoBehaviour
 	private Timer m_raceTimer = null, m_lapTimer = null;
 	private Timer m_bestTimer;
 	private TextMeshProUGUI m_currentLapText;
-	private static int m_currentLap = 0;
+	private static int m_currentLap = 1;
 	private bool finish = false;
 
 	private void Start()
@@ -84,7 +84,7 @@ public class HUDController : MonoBehaviour
 
 	public void IncreaseNbLaps()
 	{
-		if (m_currentLap == m_nbLaps)
+		if (m_currentLap > m_nbLaps)
 		{
 			finish = true;
 		}
