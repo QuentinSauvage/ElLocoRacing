@@ -53,23 +53,46 @@ public class HUDController : MonoBehaviour
 		}
 	}
 
+	private int m_nbLaps, m_currentLap, m_currentPosition;
 	[SerializeField]
-	private int m_nbLaps;
-	[SerializeField]
-	private GameObject m_nbLapsUI, m_currentLapUI;
+	private GameObject m_nbLapsUI, m_currentLapUI, m_nbPositionsUI, m_currentPositionUI;
 	[SerializeField]
 	private Timer m_raceTimer = null, m_lapTimer = null;
 	private Timer m_bestTimer;
-	private TextMeshProUGUI m_currentLapText;
-	private static int m_currentLap = 1;
+	private TextMeshProUGUI m_currentLapText, m_currentPositionText;
 	private bool finish = false;
 
 	private void Start()
 	{
 		m_raceTimer.Start();
 		m_lapTimer.Start();
-		m_nbLapsUI.GetComponent<TextMeshProUGUI>().text = (m_nbLaps >= 10) ? m_nbLaps.ToString() : '0' + m_nbLaps.ToString();
+		m_nbLaps = RaceParameters.nbLaps;
+		m_currentPosition = 1;
+		m_currentLap = 1;
+		TextMeshProUGUI lapsText = m_nbLapsUI.GetComponent<TextMeshProUGUI>();	
+		if(m_nbLaps > 10)
+		{
+			lapsText.text = '/' + m_nbLaps.ToString();
+		} else if(m_nbLaps > 0)
+		{
+			lapsText.text =  "/0" + m_nbLaps.ToString();
+		} else
+		{
+			lapsText.text = "";
+		}
 		m_currentLapText = m_currentLapUI.GetComponent<TextMeshProUGUI>();
+		m_currentLapText.text = '0' + m_currentLap.ToString();
+
+		TextMeshProUGUI positionsText = m_nbPositionsUI.GetComponent<TextMeshProUGUI>();
+		if (RaceParameters.AI)
+		{
+			positionsText.text = "/02";
+		} else
+		{
+			positionsText.text = "";
+		}
+		m_currentPositionText = m_currentPositionUI.GetComponent<TextMeshProUGUI>();
+		m_currentPositionText.text = '0' + m_currentPosition.ToString();
 	}
 
 	void Update()
@@ -90,7 +113,7 @@ public class HUDController : MonoBehaviour
 		}
 		else
 		{
-			m_currentLapText.text = (++m_currentLap >= 10) ? m_currentLap.ToString() + '/' : '0' + m_currentLap.ToString() + '/';
+			m_currentLapText.text = (++m_currentLap >= 10) ? m_currentLap.ToString() : '0' + m_currentLap.ToString();
 			m_lapTimer.Reset();
 		}
 	}
