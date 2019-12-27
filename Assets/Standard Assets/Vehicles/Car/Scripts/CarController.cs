@@ -74,8 +74,8 @@ namespace UnityStandardAssets.Vehicles.Car
         }
 
         public void Update()
-        {
-            if(Input.GetKeyDown("space"))
+        { 
+            if(Input.GetButtonDown("Horn"))
             {
                 m_carAudio.PlayCarHorn();
             }

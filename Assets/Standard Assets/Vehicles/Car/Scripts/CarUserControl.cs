@@ -42,10 +42,10 @@ namespace UnityStandardAssets.Vehicles.Car
             float v = CrossPlatformInputManager.GetAxis("Vertical");
 
             // pass the input to the camera
-            if (Input.GetButton("Mouse Left"))
-            {
+            //if (Input.GetButton("Mouse Left"))
+            //{
                 m_Camera.Rotate(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-            }
+            //}
             m_Camera.Switch(Input.GetButton("Mouse Right"));
 
 #if !MOBILE_INPUT
