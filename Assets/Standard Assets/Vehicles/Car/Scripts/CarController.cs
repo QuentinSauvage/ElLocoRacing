@@ -35,6 +35,7 @@ namespace UnityStandardAssets.Vehicles.Car
         [SerializeField] private float m_RevRangeBoundary = 1f;
         [SerializeField] private float m_SlipLimit;
         [SerializeField] private float m_BrakeTorque;
+		[SerializeField] private GameObject m_pointer;
 
         private Quaternion[] m_WheelMeshLocalRotations;
         private Vector3 m_Prevpos, m_Pos;
@@ -46,6 +47,7 @@ namespace UnityStandardAssets.Vehicles.Car
         private Rigidbody m_Rigidbody;
         private const float k_ReversingThreshold = 0.01f;
         private CarAudio m_carAudio;
+		private float lastSpeed;
 
         public bool Skidding { get; private set; }
         public float BrakeInput { get; private set; }
@@ -70,14 +72,22 @@ namespace UnityStandardAssets.Vehicles.Car
             m_carAudio = GetComponent<CarAudio>();
             m_Rigidbody = GetComponent<Rigidbody>();
             m_CurrentTorque = m_FullTorqueOverAllWheels - (m_TractionControl * m_FullTorqueOverAllWheels);
-        }
+			lastSpeed = CurrentSpeed;
+		}
 
         public void Update()
         {
-            if (Input.GetButtonDown("Horn"))
+			float currentSpeed = CurrentSpeed;
+			if (currentSpeed > 0)
+			{
+				float value = lastSpeed - currentSpeed;
+				m_pointer.transform.Rotate(Vector3.up * value);
+			}
+			if (Input.GetButtonDown("Horn"))
             {
                 m_carAudio.PlayCarHorn();
             }
+			lastSpeed = CurrentSpeed;
         }
         private void GearChanging()
         {
