@@ -7,6 +7,8 @@ public class CheckpointController : MonoBehaviour
 	public bool m_endLapCheckpoint;
 	public GameObject m_nextCheckpoint;
 	public GameObject m_ui;
+	public static GameObject m_currentCheckpoint;
+
 	private HUDController m_hud;
 
 	private void Awake()
@@ -23,6 +25,7 @@ public class CheckpointController : MonoBehaviour
 				m_hud.IncreaseNbLaps();
 			}
 			m_nextCheckpoint.SetActive(true);
+			m_currentCheckpoint = this.gameObject;
 			this.gameObject.SetActive(false);
 		}
 	}
