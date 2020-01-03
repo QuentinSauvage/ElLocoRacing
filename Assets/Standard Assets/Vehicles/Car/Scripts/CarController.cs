@@ -35,7 +35,7 @@ namespace UnityStandardAssets.Vehicles.Car
         [SerializeField] private float m_RevRangeBoundary = 1f;
         [SerializeField] private float m_SlipLimit;
         [SerializeField] private float m_BrakeTorque;
-		[SerializeField] private GameObject m_pointer;
+        [SerializeField] private GameObject m_pointer;
 
         private Quaternion[] m_WheelMeshLocalRotations;
         private Vector3 m_Prevpos, m_Pos;
@@ -47,7 +47,7 @@ namespace UnityStandardAssets.Vehicles.Car
         private Rigidbody m_Rigidbody;
         private const float k_ReversingThreshold = 0.01f;
         private CarAudio m_carAudio;
-		private float lastSpeed;
+        private float lastSpeed;
 
         public bool Skidding { get; private set; }
         public float BrakeInput { get; private set; }
@@ -72,23 +72,25 @@ namespace UnityStandardAssets.Vehicles.Car
             m_carAudio = GetComponent<CarAudio>();
             m_Rigidbody = GetComponent<Rigidbody>();
             m_CurrentTorque = m_FullTorqueOverAllWheels - (m_TractionControl * m_FullTorqueOverAllWheels);
-			lastSpeed = CurrentSpeed;
-		}
+            lastSpeed = CurrentSpeed;
+        }
 
         public void Update()
         {
-			float currentSpeed = CurrentSpeed;
-			if (currentSpeed > 0)
-			{
-				float value = lastSpeed - currentSpeed;
-				m_pointer.transform.Rotate(Vector3.up * value);
-			}
-			if (Input.GetButtonDown("Horn"))
+            float currentSpeed = CurrentSpeed;
+            if (currentSpeed > 0)
+            {
+                float value = lastSpeed - currentSpeed;
+                m_pointer.transform.Rotate(Vector3.up * value);
+            }
+            if (Input.GetButtonDown("Horn"))
             {
                 m_carAudio.PlayCarHorn();
             }
-			lastSpeed = CurrentSpeed;
+
+            lastSpeed = CurrentSpeed;
         }
+
         private void GearChanging()
         {
             float f = Mathf.Abs(CurrentSpeed / MaxSpeed);
@@ -217,6 +219,12 @@ namespace UnityStandardAssets.Vehicles.Car
 
         private void ApplyDrive(float accel, float footbrake)
         {
+            //stop the car if the speed is too low
+            if (m_Rigidbody.velocity.magnitude < 0.1 && accel < 0.1 && footbrake < 0.1)
+            {
+                m_Rigidbody.velocity = Vector3.zero;
+                m_Rigidbody.angularVelocity = Vector3.zero;
+            }
 
             float thrustTorque;
             switch (m_CarDriveType)

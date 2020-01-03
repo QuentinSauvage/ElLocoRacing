@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CheckpointController : MonoBehaviour
 {
@@ -9,9 +7,15 @@ public class CheckpointController : MonoBehaviour
 	public GameObject m_ui;
 	private HUDController m_hud;
 
+	public static GameObject m_currentCheckpoint;
+
 	private void Awake()
 	{
 		m_hud = m_ui.GetComponent<HUDController>();
+		if (this.gameObject.activeSelf)
+		{
+			m_currentCheckpoint = this.gameObject;
+		}
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -23,6 +27,7 @@ public class CheckpointController : MonoBehaviour
 				m_hud.IncreaseNbLaps();
 			}
 			m_nextCheckpoint.SetActive(true);
+			m_currentCheckpoint = this.gameObject;
 			this.gameObject.SetActive(false);
 		}
 	}

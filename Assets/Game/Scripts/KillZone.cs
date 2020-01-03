@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class KillZone : MonoBehaviour
 {
@@ -9,8 +7,14 @@ public class KillZone : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.attachedRigidbody.transform.SetPositionAndRotation(new Vector3(-150, 1, -50), Quaternion.Euler(0,90,0));
-            //TODO use last checkpoint position and rotation
+            Transform t;
+            if (!CheckpointController.m_currentCheckpoint)
+            {
+                Debug.Log("ok");
+            }
+            other.attachedRigidbody.transform.SetPositionAndRotation(CheckpointController.m_currentCheckpoint.transform.position, CheckpointController.m_currentCheckpoint.transform.rotation);
+            other.attachedRigidbody.velocity = Vector3.zero;
+            other.attachedRigidbody.angularVelocity = Vector3.zero;
         }
     }
 }

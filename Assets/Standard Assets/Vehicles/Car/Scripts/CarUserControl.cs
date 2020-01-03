@@ -31,7 +31,7 @@ namespace UnityStandardAssets.Vehicles.Car
                 brakeLights.material = brakeLightsOn;
                 TailLightLeftSpot.gameObject.SetActive(true);
                 TailLightRightSpot.gameObject.SetActive(true);
-                Debug.Log("Activation");
+                //Debug.Log("Activation");
             }
             else
             {

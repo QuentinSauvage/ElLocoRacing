@@ -23,9 +23,9 @@ public class MenuController : MonoBehaviour
 		//need to retrieve all existing tracks in a list of tracks
 		tracks.Add("Track1");
 		tracks.Add("Track2");
-		tracksText.text = tracks[0];
-		modesText.text = modes[0];
-		lapsText.text = laps[0];
+		//tracksText.text = tracks[0];
+		//modesText.text = modes[0];
+		//lapsText.text = laps[0];
 	}
 
 	public void OnDisplayRace()
