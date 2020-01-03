@@ -11,9 +11,12 @@ public class HUDController : MonoBehaviour
 		private float minutes = 0;
 		private float seconds = 0;
 
-		[SerializeField]
-		private GameObject minutesUI = null, secondsUI = null, millisecondsUI = null;
-		private TextMeshProUGUI minutesText, secondsText, millisecondsText;
+		[SerializeField] private GameObject minutesUI = null;
+		[SerializeField] private GameObject secondsUI = null;
+		[SerializeField] private GameObject millisecondsUI = null;
+		private TextMeshProUGUI minutesText;
+		private TextMeshProUGUI secondsText;
+		private TextMeshProUGUI millisecondsText;
 
 		public float Minutes { get => minutes; set => minutes = value; }
 		public float Seconds { get => seconds; set => seconds = value; }
@@ -53,14 +56,19 @@ public class HUDController : MonoBehaviour
 		}
 	}
 
-	private int m_nbLaps, m_currentLap, m_currentPosition;
-	[SerializeField]
-	private GameObject m_nbLapsUI, m_currentLapUI, m_nbPositionsUI, m_currentPositionUI;
-	[SerializeField]
-	private Timer m_raceTimer = null, m_lapTimer = null;
+	[SerializeField] private GameObject m_nbLapsUI = null;
+	[SerializeField] private GameObject m_currentLapUI = null;
+	[SerializeField] private GameObject m_nbPositionsUI = null;
+	[SerializeField] private GameObject m_currentPositionUI = null;
+	[SerializeField] private Timer m_raceTimer = null;
+	[SerializeField] private Timer m_lapTimer = null;
 	private Timer m_bestTimer;
-	private TextMeshProUGUI m_currentLapText, m_currentPositionText;
+	private TextMeshProUGUI m_currentLapText;
+	private TextMeshProUGUI m_currentPositionText;
 	private bool finish = false;
+	private int m_nbLaps;
+	private int m_currentLap;
+	private int m_currentPosition;
 
 	private void Start()
 	{

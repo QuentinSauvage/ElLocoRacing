@@ -15,8 +15,12 @@ public class MenuController : MonoBehaviour
 	private string[] laps = new string[] {"1 lap", "3 laps", "5 laps", "Infinite"};
 	private List<string> tracks = new List<string>();
 	private string[] modes = new string[] { "Time Attack", "VS CPU" };
-	private int tracksIndex = 0, modesIndex = 0, lapsIndex = 0;
-	[SerializeField] private TextMeshProUGUI tracksText, modesText, lapsText;
+	private int tracksIndex = 0;
+	private int modesIndex = 0;
+	private int lapsIndex = 0;
+	[SerializeField] private TextMeshProUGUI tracksText = null;
+	[SerializeField] private TextMeshProUGUI modesText = null;
+	[SerializeField] private TextMeshProUGUI lapsText = null;
 
 	private void Awake()
 	{
