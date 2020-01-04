@@ -18,13 +18,11 @@ public class Tracker : MonoBehaviour
 		{
 			m_waypoints[i] = t.GetChild(i);
 		}
-		Debug.Log(m_waypoints[0].position);
 		transform.position = m_waypoints[0].position;
 	}
 
 	public void OnTriggerEnter(Collider collision)
 	{
-		Debug.Log(collision.gameObject.tag);
 		if(collision.gameObject.tag == "AI")
 		{
 			m_waypointIndex = (m_waypointIndex + 1) % m_nbWaypoints;

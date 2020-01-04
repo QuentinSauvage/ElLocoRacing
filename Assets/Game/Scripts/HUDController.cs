@@ -92,12 +92,12 @@ public class HUDController : MonoBehaviour
 		m_currentLapText.text = '0' + m_currentLap.ToString();
 
 		TextMeshProUGUI positionsText = m_nbPositionsUI.GetComponent<TextMeshProUGUI>();
-		if (RaceParameters.AI)
-		{
-			positionsText.text = "/02";
-		} else
+		if (RaceParameters.AI == 1)
 		{
 			positionsText.text = "";
+		} else
+		{
+			positionsText.text = "/0" + (RaceParameters.AI + 1);
 		}
 		m_currentPositionText = m_currentPositionUI.GetComponent<TextMeshProUGUI>();
 		m_currentPositionText.text = '0' + m_currentPosition.ToString();
