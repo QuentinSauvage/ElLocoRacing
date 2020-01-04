@@ -4,6 +4,6 @@ using UnityEngine;
 
 public static class RaceParameters
 {
-	public static int nbLaps;
-	public static bool AI;
+	public static int nbLaps = 0;
+	public static int AI = 0;
 }
