@@ -5,6 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Waypoint
+  - AI1
+  - AI2
+  - AI3
+  - AI4
+  - AI5
+  - AI6
+  - AI7
+  - AI8
   - AI
   layers:
   - Default

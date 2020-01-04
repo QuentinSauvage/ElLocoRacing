@@ -1994,7 +1994,7 @@ MonoBehaviour:
   m_LateralWanderSpeed: 0.2
   m_AccelWanderAmount: 0.1
   m_AccelWanderSpeed: 0.1
-  m_BrakeCondition: 2
+  m_BrakeCondition: 1
   m_Driving: 1
   m_Target: {fileID: 1678544265908367275}
   m_StopWhenTargetReached: 0
@@ -7645,6 +7645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_waypointsContainer: {fileID: 1678544265955400439}
+  collisionName: 
 --- !u!1 &1678544265955400439
 GameObject:
   m_ObjectHideFlags: 0
@@ -15118,11 +15119,6 @@ PrefabInstance:
       propertyPath: m_TagString
       value: AI
       objectReference: {fileID: 0}
-    - target: {fileID: 4002406841387591556, guid: 25e553fbb2c87ae498988e75ffaba066,
-        type: 3}
-      propertyPath: m_TagString
-      value: AI
-      objectReference: {fileID: 0}
     - target: {fileID: 4002406841541588198, guid: 25e553fbb2c87ae498988e75ffaba066,
         type: 3}
       propertyPath: m_TagString
@@ -15192,6 +15188,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002406841387591556, guid: 25e553fbb2c87ae498988e75ffaba066,
+        type: 3}
+      propertyPath: m_TagString
+      value: AI
       objectReference: {fileID: 0}
     - target: {fileID: 4002406841496187119, guid: 25e553fbb2c87ae498988e75ffaba066,
         type: 3}
