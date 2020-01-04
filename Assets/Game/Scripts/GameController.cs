@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
     {
 		GameObject AIContainer = GameObject.Find("AI Container");
 		int i;
-        for(i = 0; i < /*RaceParameters.AI && i < */AIContainer.transform.childCount; ++i)
+        for(i = 0; i < RaceParameters.AI && i < AIContainer.transform.childCount; ++i)
 		{
 			GameObject ai = AIContainer.transform.GetChild(i).gameObject;
 			ai.SetActive(true);
