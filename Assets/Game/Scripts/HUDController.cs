@@ -62,21 +62,20 @@ public class HUDController : MonoBehaviour
 	[SerializeField] private GameObject m_currentPositionUI = null;
 	[SerializeField] private Timer m_raceTimer = null;
 	[SerializeField] private Timer m_lapTimer = null;
+	[SerializeField] private GameObject player = null;
 	private Timer m_bestTimer;
 	private TextMeshProUGUI m_currentLapText;
 	private TextMeshProUGUI m_currentPositionText;
 	private bool finish = false;
 	private int m_nbLaps;
-	private int m_currentLap;
-	private int m_currentPosition;
+	private CarInfo m_playerInfo;
 
 	private void Start()
 	{
 		m_raceTimer.Start();
 		m_lapTimer.Start();
 		m_nbLaps = RaceParameters.nbLaps;
-		m_currentPosition = 1;
-		m_currentLap = 1;
+		m_playerInfo = player.GetComponent<CarInfo>();
 		TextMeshProUGUI lapsText = m_nbLapsUI.GetComponent<TextMeshProUGUI>();	
 		if(m_nbLaps > 10)
 		{
@@ -89,7 +88,7 @@ public class HUDController : MonoBehaviour
 			lapsText.text = "";
 		}
 		m_currentLapText = m_currentLapUI.GetComponent<TextMeshProUGUI>();
-		m_currentLapText.text = '0' + m_currentLap.ToString();
+		m_currentLapText.text = '0' + m_playerInfo.Laps.ToString();
 
 		TextMeshProUGUI positionsText = m_nbPositionsUI.GetComponent<TextMeshProUGUI>();
 		if (RaceParameters.AI == 1)
@@ -100,7 +99,7 @@ public class HUDController : MonoBehaviour
 			positionsText.text = "/0" + (RaceParameters.AI + 1);
 		}
 		m_currentPositionText = m_currentPositionUI.GetComponent<TextMeshProUGUI>();
-		m_currentPositionText.text = '0' + m_currentPosition.ToString();
+		m_currentPositionText.text = "01";
 	}
 
 	void Update()
@@ -112,16 +111,21 @@ public class HUDController : MonoBehaviour
 		}
 	}
 
-
-	public void IncreaseNbLaps()
+	public void UpdatePosition(int position)
 	{
-		if (m_currentLap > m_nbLaps)
+		m_currentPositionText.text = '0' + position.ToString();
+	}
+
+	public void UpdateLaps()
+	{
+		if (m_playerInfo.Laps > m_nbLaps)
 		{
 			finish = true;
 		}
 		else
 		{
-			m_currentLapText.text = (++m_currentLap >= 10) ? m_currentLap.ToString() : '0' + m_currentLap.ToString();
+			m_playerInfo.IncreaseLaps();
+			m_currentLapText.text = (m_playerInfo.Laps >= 10) ? m_playerInfo.Laps.ToString() : '0' + m_playerInfo.Laps.ToString();
 			m_lapTimer.Reset();
 		}
 	}
