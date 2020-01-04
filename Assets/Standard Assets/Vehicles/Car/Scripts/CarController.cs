@@ -75,7 +75,7 @@ namespace UnityStandardAssets.Vehicles.Car
             lastSpeed = CurrentSpeed;
         }
 
-        public void Update()
+        private void Update()
         {
             float currentSpeed = CurrentSpeed;
             if (currentSpeed > 0)

@@ -10,7 +10,7 @@ public class Tracker : MonoBehaviour
 	private int m_waypointIndex = 0;
 	private int m_nbWaypoints = 0;
 
-	public void Awake()
+	void Awake()
 	{
 		Transform t = m_waypointsContainer.transform;
 		m_nbWaypoints = t.childCount;
@@ -22,7 +22,7 @@ public class Tracker : MonoBehaviour
 		transform.position = m_waypoints[0].position;
 	}
 
-	public void OnTriggerEnter(Collider collision)
+	void OnTriggerEnter(Collider collision)
 	{
 		if(collision.gameObject.tag == collisionName)
 		{

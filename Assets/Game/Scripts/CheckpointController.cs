@@ -7,28 +7,43 @@ public class CheckpointController : MonoBehaviour
 	public GameObject m_ui;
 	private HUDController m_hud;
 
-	public static GameObject m_currentCheckpoint;
+	public static GameObject m_currentCheckpoint = null;
 
-	private void Awake()
+	 void Awake()
 	{
 		m_hud = m_ui.GetComponent<HUDController>();
-		if (this.gameObject.activeSelf)
+		if (m_currentCheckpoint == null)
 		{
-			m_currentCheckpoint = this.gameObject;
+			m_currentCheckpoint = GameObject.Find("Checkpoints").transform.GetChild(0).gameObject;
 		}
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.tag == "Player")
+		CarInfo info = other.transform.parent.parent.GetComponent<CarInfo>();
+		if (info != null)
 		{
-			if (m_endLapCheckpoint)
+			if (info.Next == this.gameObject)
 			{
-				m_hud.IncreaseNbLaps();
+				info.Next = m_nextCheckpoint;
+				if(m_endLapCheckpoint)
+				{
+					info.IncreaseLaps();
+					if (other.gameObject.tag == "Player")
+					{
+						m_currentCheckpoint = this.gameObject;
+						m_hud.UpdateLaps();
+					}
+				}
+				else
+				{
+					if (other.gameObject.tag == "Player")
+					{
+						m_currentCheckpoint = this.gameObject;
+					}
+					info.IncreaseCheckpoints();
+				}
 			}
-			m_nextCheckpoint.SetActive(true);
-			m_currentCheckpoint = this.gameObject;
-			this.gameObject.SetActive(false);
 		}
 	}
 }
