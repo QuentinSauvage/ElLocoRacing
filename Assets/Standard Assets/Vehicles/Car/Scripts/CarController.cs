@@ -220,7 +220,7 @@ namespace UnityStandardAssets.Vehicles.Car
         private void ApplyDrive(float accel, float footbrake)
         {
             //stop the car if the speed is too low
-            if (m_Rigidbody.velocity.magnitude < 0.1 && accel < 0.1 && footbrake < 0.1)
+            if (Mathf.Abs(m_Rigidbody.velocity.magnitude) < 0.1 && accel < 0.1 && footbrake < 0.1)
             {
                 m_Rigidbody.velocity = Vector3.zero;
                 m_Rigidbody.angularVelocity = Vector3.zero;
