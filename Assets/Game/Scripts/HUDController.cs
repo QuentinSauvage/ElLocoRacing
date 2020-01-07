@@ -1,6 +1,6 @@
 ﻿using System;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class HUDController : MonoBehaviour
 {
@@ -32,11 +32,11 @@ public class HUDController : MonoBehaviour
 		public void Update()
 		{
 			milliseconds += Time.deltaTime * 100;
-			if(milliseconds > 99)
+			if (milliseconds > 99)
 			{
 				milliseconds = 0;
 				++seconds;
-				if(seconds >= 60)
+				if (seconds >= 60)
 				{
 					seconds = 0;
 					++minutes;
@@ -76,14 +76,16 @@ public class HUDController : MonoBehaviour
 		m_lapTimer.Start();
 		m_nbLaps = RaceParameters.nbLaps;
 		m_playerInfo = player.GetComponent<CarInfo>();
-		TextMeshProUGUI lapsText = m_nbLapsUI.GetComponent<TextMeshProUGUI>();	
-		if(m_nbLaps > 10)
+		TextMeshProUGUI lapsText = m_nbLapsUI.GetComponent<TextMeshProUGUI>();
+		if (m_nbLaps > 10)
 		{
 			lapsText.text = '/' + m_nbLaps.ToString();
-		} else if(m_nbLaps > 0)
+		}
+		else if (m_nbLaps > 0)
 		{
-			lapsText.text =  "/0" + m_nbLaps.ToString();
-		} else
+			lapsText.text = "/0" + m_nbLaps.ToString();
+		}
+		else
 		{
 			lapsText.text = "";
 		}
@@ -94,7 +96,8 @@ public class HUDController : MonoBehaviour
 		if (RaceParameters.AI == 1)
 		{
 			positionsText.text = "";
-		} else
+		}
+		else
 		{
 			positionsText.text = "/0" + (RaceParameters.AI + 1);
 		}
@@ -103,7 +106,7 @@ public class HUDController : MonoBehaviour
 	}
 
 	void Update()
-    {
+	{
 		if (!finish)
 		{
 			m_raceTimer.Update();

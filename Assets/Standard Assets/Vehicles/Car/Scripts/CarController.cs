@@ -35,7 +35,6 @@ namespace UnityStandardAssets.Vehicles.Car
         [SerializeField] private float m_RevRangeBoundary = 1f;
         [SerializeField] private float m_SlipLimit;
         [SerializeField] private float m_BrakeTorque;
-        [SerializeField] private GameObject m_pointer;
 
         private Quaternion[] m_WheelMeshLocalRotations;
         private Vector3 m_Prevpos, m_Pos;
@@ -79,10 +78,7 @@ namespace UnityStandardAssets.Vehicles.Car
         private void Update()
         {
             Acceleration = lastSpeed - CurrentSpeed;
-            if (CurrentSpeed > 0)
-            {
-                m_pointer.transform.Rotate(Vector3.up * Acceleration);
-            }
+
             if (Input.GetButtonDown("Horn"))
             {
                 m_carAudio.PlayCarHorn();
