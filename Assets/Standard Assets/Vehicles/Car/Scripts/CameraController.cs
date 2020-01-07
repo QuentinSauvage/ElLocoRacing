@@ -1,35 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace UnityStandardAssets.Vehicles.Car
 {
     [RequireComponent(typeof(CameraController))]
     public class CameraController : MonoBehaviour
     {
-        //private CarController m_Car; // the car controller we want to use
+        private CarController m_Car; // the car controller we want to use
         public Camera m_mainCamera;
         public Camera m_BackupCamera;
         public float m_RotationAngleX = 60;
         public float m_RotationAngleY = 60;
+        public float m_FoVAccelRatio = 0.05f;
 
         private float m_MaxRotationAngleX;
         private float m_MaxRotationAngleY;
 
-        // Start is called before the first frame update
         private void Start()
         {
             // get the car controller
-            //m_Car = GetComponent<CarController>();
-            m_MaxRotationAngleX = 360 - m_RotationAngleX; 
+            m_Car = GetComponent<CarController>();
+            m_MaxRotationAngleX = 360 - m_RotationAngleX;
             m_MaxRotationAngleY = 360 - m_RotationAngleY;
             m_BackupCamera.gameObject.SetActive(false);
         }
 
-        // Update is called once per frame
         public void Update()
         {
-
+            m_mainCamera.fieldOfView -= m_Car.Acceleration * m_FoVAccelRatio;
         }
 
         public void Rotate(float xMove, float yMove)

@@ -56,6 +56,7 @@ namespace UnityStandardAssets.Vehicles.Car
         public float MaxSpeed { get { return m_Topspeed; } }
         public float Revs { get; private set; }
         public float AccelInput { get; private set; }
+        public float Acceleration { get; private set; }
 
         // Use this for initialization
         private void Start()
@@ -77,11 +78,10 @@ namespace UnityStandardAssets.Vehicles.Car
 
         private void Update()
         {
-            float currentSpeed = CurrentSpeed;
-            if (currentSpeed > 0)
+            Acceleration = lastSpeed - CurrentSpeed;
+            if (CurrentSpeed > 0)
             {
-                float value = lastSpeed - currentSpeed;
-                m_pointer.transform.Rotate(Vector3.up * value);
+                m_pointer.transform.Rotate(Vector3.up * Acceleration);
             }
             if (Input.GetButtonDown("Horn"))
             {
