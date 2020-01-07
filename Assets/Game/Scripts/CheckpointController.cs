@@ -28,11 +28,13 @@ public class CheckpointController : MonoBehaviour
 				info.Next = m_nextCheckpoint;
 				if(m_endLapCheckpoint)
 				{
-					info.IncreaseLaps();
 					if (other.gameObject.tag == "Player")
 					{
 						m_currentCheckpoint = this.gameObject;
 						m_hud.UpdateLaps();
+					} else
+					{
+						info.IncreaseLaps();
 					}
 				}
 				else

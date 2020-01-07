@@ -69,6 +69,12 @@ public class HUDController : MonoBehaviour
 	private bool finish = false;
 	private int m_nbLaps;
 	private CarInfo m_playerInfo;
+	private GameController m_gameController;
+
+	private void Awake()
+	{
+		m_gameController = GameObject.Find("Controller").GetComponent<GameController>();
+	}
 
 	private void Start()
 	{
@@ -107,7 +113,7 @@ public class HUDController : MonoBehaviour
 
 	void Update()
 	{
-		if (!finish)
+		if (!m_gameController.Pause && !m_gameController.Finished)
 		{
 			m_raceTimer.Update();
 			m_lapTimer.Update();
@@ -116,14 +122,17 @@ public class HUDController : MonoBehaviour
 
 	public void UpdatePosition(int position)
 	{
-		m_currentPositionText.text = '0' + position.ToString();
+		if(m_currentPositionText != null)
+		{
+			m_currentPositionText.text = '0' + position.ToString();
+		}
 	}
 
 	public void UpdateLaps()
 	{
 		if (m_playerInfo.Laps > m_nbLaps)
 		{
-			finish = true;
+			m_gameController.Finish();
 		}
 		else
 		{
