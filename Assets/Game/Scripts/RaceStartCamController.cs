@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RaceStartCamController : MonoBehaviour
 {
@@ -7,8 +6,8 @@ public class RaceStartCamController : MonoBehaviour
     [SerializeField] private GameObject m_1Text;
     [SerializeField] private GameObject m_2Text;
     [SerializeField] private GameObject m_3Text;
-	[SerializeField] private GameObject m_ui;
-	[SerializeField] private GameObject m_pause;
+    [SerializeField] private GameObject m_ui;
+    [SerializeField] private GameObject m_pause;
 
     private void Awake()
     {
@@ -19,12 +18,13 @@ public class RaceStartCamController : MonoBehaviour
 
     public void AnimationEnd()
     {
-		GameController gameController = GameObject.Find("Controller").GetComponent<GameController>();
-		gameController.Pause = false;
-		m_1Text.SetActive(false);
-		m_ui.SetActive(true);
-		m_pause.SetActive(false);
-		gameObject.SetActive(false);
+        GameController gameController = GameObject.Find("Controller").GetComponent<GameController>();
+        gameController.Pause = false;
+        gameController.Unpause = true;
+        m_1Text.SetActive(false);
+        m_ui.SetActive(true);
+        m_pause.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void print1()
