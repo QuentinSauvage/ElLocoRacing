@@ -61,14 +61,14 @@ namespace UnityStandardAssets.Vehicles.Car
             m_Rigidbody = GetComponent<Rigidbody>();
 			m_info = GetComponent<CarInfo>();
 			m_gameController = GameObject.Find("Controller").GetComponent<GameController>();
-			InvokeRepeating("CheckPosition", 3f, 5f);
+			InvokeRepeating("CheckPosition", 3f, 4f);
 		}
 
 		private void CheckPosition()
 		{
 			if(m_started)
 			{
-				if(Vector3.Distance(transform.position, m_lastPosition) < 3 && m_info.Current != null)
+				if(Vector3.Distance(transform.position, m_lastPosition) < 2 && m_info.Current != null)
 				{
 					Vector3 randPosition = new Vector3(Random.Range(-10.0f, 10.0f), 0, Random.Range(-10.0f, 10.0f));
 					randPosition += m_info.Current.transform.position;

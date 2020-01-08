@@ -63,14 +63,12 @@ public class HUDController : MonoBehaviour
 	[SerializeField] private Timer m_raceTimer = null;
 	[SerializeField] private Timer m_lapTimer = null;
 	[SerializeField] private GameObject player = null;
-	[SerializeField] private TextMeshProUGUI m_framerate;
 	private Timer m_bestTimer;
 	private TextMeshProUGUI m_currentLapText;
 	private TextMeshProUGUI m_currentPositionText;
 	private int m_nbLaps;
 	private CarInfo m_playerInfo;
 	private GameController m_gameController;
-	private float m_deltatime = 0.0f;
 
 	private void Awake()
 	{
@@ -119,12 +117,6 @@ public class HUDController : MonoBehaviour
 			m_raceTimer.Update();
 			m_lapTimer.Update();
 		}
-		m_deltatime += (Time.unscaledDeltaTime - m_deltatime) * 0.1f;
-	}
-
-	private void OnGUI()
-	{
-		m_framerate.text = Mathf.Round(1.0f / m_deltatime) + " fps";
 	}
 
 	public void UpdatePosition(int position)
