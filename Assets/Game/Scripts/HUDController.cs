@@ -66,7 +66,6 @@ public class HUDController : MonoBehaviour
 	private Timer m_bestTimer;
 	private TextMeshProUGUI m_currentLapText;
 	private TextMeshProUGUI m_currentPositionText;
-	private bool finish = false;
 	private int m_nbLaps;
 	private CarInfo m_playerInfo;
 	private GameController m_gameController;

@@ -26,7 +26,11 @@ public class Tracker : MonoBehaviour
 	{
 		if(collision.gameObject.tag == collisionName)
 		{
+			CarInfo carInfo = collision.transform.parent.parent.GetComponent<CarInfo>();
+			int tmpIndex = (m_waypointIndex > 0) ? m_waypointIndex - 1 : 0;
+			carInfo.Current = m_waypoints[tmpIndex].gameObject;
 			m_waypointIndex = (m_waypointIndex + 1) % m_nbWaypoints;
+			carInfo.NextWP = m_waypoints[m_waypointIndex].gameObject;
 			transform.position = m_waypoints[m_waypointIndex].position;
 		}
 	}
