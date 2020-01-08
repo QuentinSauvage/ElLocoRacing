@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
 	{
 		GameObject AIContainer = GameObject.Find("AI Container");
 		int i;
-		int nbAI = 8; // (RaceParameters.AI < AIContainer.transform.childCount) ? RaceParameters.AI : AIContainer.transform.childCount;
+		int nbAI = (RaceParameters.AI < AIContainer.transform.childCount) ? RaceParameters.AI : AIContainer.transform.childCount;
 		m_cars = new CarInfo[nbAI + 1];
 		m_cars[0] = m_player.GetComponent<CarInfo>();
 		for (i = 0; i < nbAI; ++i)
