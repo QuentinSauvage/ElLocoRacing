@@ -15,6 +15,7 @@ namespace UnityStandardAssets.Vehicles.Car
         private CarController m_Car; // the car controller we want to use
         private CameraController m_Camera;
 		private GameController m_gameController;
+		private Rigidbody m_rigidbody;
 
 		private void Awake()
         {
@@ -23,6 +24,7 @@ namespace UnityStandardAssets.Vehicles.Car
             // get the camera controller
             m_Camera = GetComponent<CameraController>();
 			m_gameController = GameObject.Find("Controller").GetComponent<GameController>();
+			m_rigidbody = GetComponent<Rigidbody>();
 		}
 
         private void Update()
@@ -41,6 +43,12 @@ namespace UnityStandardAssets.Vehicles.Car
 					brakeLights.material = brakeLightsOff;
 					TailLightLeftSpot.gameObject.SetActive(false);
 					TailLightRightSpot.gameObject.SetActive(false);
+				}
+				if(Input.GetButton("Reset"))
+				{
+					m_rigidbody.transform.SetPositionAndRotation(CheckpointController.m_currentCheckpoint.transform.position, CheckpointController.m_currentCheckpoint.transform.rotation);
+					m_rigidbody.velocity = Vector3.zero;
+					m_rigidbody.angularVelocity = Vector3.zero;
 				}
 			}
 			if (Input.GetButtonDown("Pause"))

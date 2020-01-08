@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -45,6 +46,9 @@ namespace UnityStandardAssets.Vehicles.Car
         private float m_AvoidPathOffset;          // direction (-1 or 1) in which to offset path to avoid other car, whilst avoiding
         private Rigidbody m_Rigidbody;
 		private GameController m_gameController;
+		private Vector3 m_lastPosition;
+		private bool m_started = false;
+		private CarInfo m_info;
 
 		private void Awake()
         {
@@ -55,11 +59,33 @@ namespace UnityStandardAssets.Vehicles.Car
             m_RandomPerlin = Random.value*100;
 
             m_Rigidbody = GetComponent<Rigidbody>();
+			m_info = GetComponent<CarInfo>();
 			m_gameController = GameObject.Find("Controller").GetComponent<GameController>();
+			InvokeRepeating("CheckPosition", 3f, 5f);
 		}
 
+		private void CheckPosition()
+		{
+			if(m_started)
+			{
+				if(Vector3.Distance(transform.position, m_lastPosition) < 3 && m_info.Current != null)
+				{
+					Vector3 randPosition = new Vector3(Random.Range(-10.0f, 10.0f), 0, Random.Range(-10.0f, 10.0f));
+					randPosition += m_info.Current.transform.position;
+					m_Rigidbody.transform.SetPositionAndRotation(randPosition, transform.rotation);
+					m_Rigidbody.velocity = Vector3.zero;
+					m_Rigidbody.transform.LookAt(m_info.NextWP.transform.position);
+					m_Rigidbody.angularVelocity = Vector3.zero;
+				}
+				m_lastPosition = transform.position;
+			} else
+			{
+				m_started = true;
+				m_lastPosition = transform.position;
+			}
+		}
 
-        private void FixedUpdate()
+		private void FixedUpdate()
         {
 			if (!m_gameController.Pause && !m_gameController.Finished)
 			{

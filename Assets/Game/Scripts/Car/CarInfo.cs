@@ -6,6 +6,8 @@ public class CarInfo : MonoBehaviour
 {
 	private int m_laps = 1;
 	private int m_checkpoints = 0;
+	private GameObject m_currentCheckpoint;
+	private GameObject m_nextWaypoint;
 	//private int m_position = 0;
 	[SerializeField] private GameObject m_nextCheckpoint = null;
 	[SerializeField] private bool m_isIA = true;
@@ -15,12 +17,30 @@ public class CarInfo : MonoBehaviour
 
 	public bool IA { get => m_isIA; }
 
+	public GameObject Current
+	{
+		get => m_currentCheckpoint;
+		set
+		{
+			m_currentCheckpoint = value;
+		}
+	}
+
 	public GameObject Next
 	{
 		get => m_nextCheckpoint;
 		set
 		{
 			m_nextCheckpoint = value;
+		}
+	}
+
+	public GameObject NextWP
+	{
+		get => m_nextWaypoint;
+		set
+		{
+			m_nextWaypoint = value;
 		}
 	}
 
