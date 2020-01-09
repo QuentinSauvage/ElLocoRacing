@@ -24,14 +24,20 @@ public class Tracker : MonoBehaviour
 
 	void OnTriggerEnter(Collider collision)
 	{
-		if(collision.gameObject.tag == collisionName)
+		if (collision.gameObject.tag == collisionName)
 		{
 			CarInfo carInfo = collision.transform.parent.parent.GetComponent<CarInfo>();
 			int tmpIndex = (m_waypointIndex > 0) ? m_waypointIndex - 1 : 0;
 			carInfo.Current = m_waypoints[tmpIndex].gameObject;
 			m_waypointIndex = (m_waypointIndex + 1) % m_nbWaypoints;
-			carInfo.NextWP = m_waypoints[m_waypointIndex].gameObject;
+			carInfo.NextWaypoint = m_waypoints[m_waypointIndex].gameObject;
 			transform.position = m_waypoints[m_waypointIndex].position;
 		}
+	}
+
+	public int PredictTime(int nbLaps)
+	{
+		Debug.Log(m_nbWaypoints + " _ " + m_waypointIndex + " _ " + nbLaps);
+		return m_nbWaypoints - m_waypointIndex + nbLaps * m_nbWaypoints;
 	}
 }

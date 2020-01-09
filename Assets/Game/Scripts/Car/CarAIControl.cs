@@ -49,6 +49,7 @@ namespace UnityStandardAssets.Vehicles.Car
 		private Vector3 m_lastPosition;
 		private bool m_started = false;
 		private CarInfo m_info;
+		private Tracker m_tracker;
 
 		private void Awake()
         {
@@ -62,6 +63,7 @@ namespace UnityStandardAssets.Vehicles.Car
 			m_info = GetComponent<CarInfo>();
 			m_gameController = GameObject.Find("Controller").GetComponent<GameController>();
 			InvokeRepeating("CheckPosition", 3f, 4f);
+			m_tracker = m_Target.GetComponent<Tracker>();
 		}
 
 		private void CheckPosition()
@@ -74,7 +76,7 @@ namespace UnityStandardAssets.Vehicles.Car
 					randPosition += m_info.Current.transform.position;
 					m_Rigidbody.transform.SetPositionAndRotation(randPosition, transform.rotation);
 					m_Rigidbody.velocity = Vector3.zero;
-					m_Rigidbody.transform.LookAt(m_info.NextWP.transform.position);
+					m_Rigidbody.transform.LookAt(m_info.NextWaypoint.transform.position);
 					m_Rigidbody.angularVelocity = Vector3.zero;
 				}
 				m_lastPosition = transform.position;
@@ -85,9 +87,14 @@ namespace UnityStandardAssets.Vehicles.Car
 			}
 		}
 
+		public int PredictTime(int nbLaps)
+		{
+			return m_tracker.PredictTime(nbLaps);
+		}
+
 		private void FixedUpdate()
         {
-			if (!m_gameController.Pause && !m_gameController.Finished)
+			if (!m_gameController.Pause)
 			{
 				if (m_Target == null || !m_Driving)
 				{
