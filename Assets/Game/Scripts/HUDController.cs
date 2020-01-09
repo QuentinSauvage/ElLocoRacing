@@ -195,6 +195,7 @@ public class HUDController : MonoBehaviour
 	public void EndRace(CarInfo[] cars)
 	{
 		m_finishText.SetActive(true);
+		m_playerInfo.IA = true;
 		StartCoroutine(WaitEndScreen(cars));
 	}
 }
