@@ -104,6 +104,7 @@ public class GameController : MonoBehaviour
 
 	public void Restart()
 	{
+		Time.timeScale = 1;
 		SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
 	}
 
@@ -117,6 +118,7 @@ public class GameController : MonoBehaviour
 
 	public void LoadMenu()
 	{
+		Time.timeScale = 1;
 		SceneManager.LoadSceneAsync("Main Screen");
 	}
 
