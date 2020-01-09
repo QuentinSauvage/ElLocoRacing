@@ -31,10 +31,10 @@ public class CheckpointController : MonoBehaviour
 					if (other.gameObject.tag == "Player")
 					{
 						m_currentCheckpoint = this.gameObject;
-						m_hud.UpdateLaps();
+						m_hud.UpdateLaps(info, true);
 					} else
 					{
-						info.IncreaseLaps();
+						m_hud.UpdateLaps(info, false);
 					}
 				}
 				else

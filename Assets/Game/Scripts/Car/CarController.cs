@@ -83,7 +83,7 @@ namespace UnityStandardAssets.Vehicles.Car
 
         private void Update()
         {
-			if (!m_gameController.Pause && !m_gameController.Finished)
+			if (!m_gameController.Pause)
 			{
 				Acceleration = lastSpeed - CurrentSpeed;
 

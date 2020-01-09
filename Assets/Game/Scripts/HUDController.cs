@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -29,7 +30,7 @@ public class HUDController : MonoBehaviour
 			millisecondsText = millisecondsUI.GetComponent<TextMeshProUGUI>();
 		}
 
-		public void Update()
+		public void Update(bool ui)
 		{
 			milliseconds += Time.deltaTime * 100;
 			if (milliseconds > 99)
@@ -40,11 +41,20 @@ public class HUDController : MonoBehaviour
 				{
 					seconds = 0;
 					++minutes;
-					minutesText.text = (minutes >= 10) ? minutes.ToString("F0") + ':' : '0' + minutes.ToString("F0") + ':';
+					if(ui)
+					{
+						minutesText.text = (minutes >= 10) ? minutes.ToString("F0") + ':' : '0' + minutes.ToString("F0") + ':';
+					}
 				}
-				secondsText.text = (seconds >= 10) ? seconds.ToString("F0") + '.' : '0' + seconds.ToString("F0") + '.';
+				if(ui)
+				{
+					secondsText.text = (seconds >= 10) ? seconds.ToString("F0") + '.' : '0' + seconds.ToString("F0") + '.';
+				}
 			}
-			millisecondsText.text = (milliseconds > 9) ? milliseconds.ToString("F0") : '0' + milliseconds.ToString("F0");
+			if(ui)
+			{
+				millisecondsText.text = (milliseconds > 9) ? milliseconds.ToString("F0") : '0' + milliseconds.ToString("F0");
+			}
 		}
 
 		public void Reset()
@@ -53,6 +63,14 @@ public class HUDController : MonoBehaviour
 			minutesUI.GetComponent<TextMeshProUGUI>().text = "00:";
 			secondsUI.GetComponent<TextMeshProUGUI>().text = "00.";
 			millisecondsUI.GetComponent<TextMeshProUGUI>().text = "00";
+		}
+
+		public override string ToString()
+		{
+			minutesText.text = (minutes >= 10) ? minutes.ToString("F0") + ':' : '0' + minutes.ToString("F0") + ':';
+			secondsText.text = (seconds >= 10) ? seconds.ToString("F0") + '.' : '0' + seconds.ToString("F0") + '.';
+			millisecondsText.text = (milliseconds > 9) ? milliseconds.ToString("F0") : '0' + milliseconds.ToString("F0");
+			return minutesText.text + secondsText.text + millisecondsText.text;
 		}
 	}
 
@@ -63,6 +81,8 @@ public class HUDController : MonoBehaviour
 	[SerializeField] private Timer m_raceTimer = null;
 	[SerializeField] private Timer m_lapTimer = null;
 	[SerializeField] private GameObject player = null;
+	[SerializeField] private GameObject m_endInfo = null;
+	[SerializeField] private GameObject m_finishText = null;
 	private Timer m_bestTimer;
 	private TextMeshProUGUI m_currentLapText;
 	private TextMeshProUGUI m_currentPositionText;
@@ -112,10 +132,10 @@ public class HUDController : MonoBehaviour
 
 	void Update()
 	{
-		if (!m_gameController.Pause && !m_gameController.Finished)
+		if (!m_gameController.Pause)
 		{
-			m_raceTimer.Update();
-			m_lapTimer.Update();
+			m_raceTimer.Update(!m_gameController.Finished);
+			m_lapTimer.Update(!m_gameController.Finished);
 		}
 	}
 
@@ -127,17 +147,54 @@ public class HUDController : MonoBehaviour
 		}
 	}
 
-	public void UpdateLaps()
+	public void UpdateLaps(CarInfo carInfo, bool player)
 	{
-		if (m_playerInfo.Laps > m_nbLaps)
+		carInfo.IncreaseLaps();
+		if (carInfo.Laps > m_nbLaps)
 		{
-			m_gameController.Finish();
+			carInfo.Time = m_raceTimer.ToString();
+			if (player)
+			{
+				m_gameController.Finish();
+			}
 		}
 		else
 		{
-			m_playerInfo.IncreaseLaps();
-			m_currentLapText.text = (m_playerInfo.Laps >= 10) ? m_playerInfo.Laps.ToString() : '0' + m_playerInfo.Laps.ToString();
-			m_lapTimer.Reset();
+			if(player)
+			{
+				m_currentLapText.text = (carInfo.Laps >= 10) ? carInfo.Laps.ToString() : '0' + carInfo.Laps.ToString();
+				m_lapTimer.Reset();
+			}
 		}
+	}
+
+	private void DisplayEndScreen(CarInfo[] cars)
+	{
+		m_finishText.SetActive(false);
+		m_endInfo.transform.parent.gameObject.SetActive(true);
+		for (int i = 0; i < cars.Length; ++i)
+		{
+			GameObject line = m_endInfo.transform.GetChild(i).gameObject;
+			line.SetActive(true);
+			line.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = cars[i].Name;
+			if (cars[i].Time == "")
+			{
+				cars[i].PredictTime(m_nbLaps, (int) m_raceTimer.Minutes, (int) m_raceTimer.Seconds, (int) m_raceTimer.Milliseconds);
+			}
+			line.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = cars[i].Time;
+		}
+		this.gameObject.SetActive(false);
+	}
+
+	IEnumerator WaitEndScreen(CarInfo[] cars)
+	{
+		yield return new WaitForSeconds(4);
+		DisplayEndScreen(cars);
+	}
+
+	public void EndRace(CarInfo[] cars)
+	{
+		m_finishText.SetActive(true);
+		StartCoroutine(WaitEndScreen(cars));
 	}
 }

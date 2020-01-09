@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityStandardAssets.Vehicles.Car;
 
 public class GameController : MonoBehaviour
 {
@@ -22,13 +23,21 @@ public class GameController : MonoBehaviour
 		int i;
 		int nbAI = (RaceParameters.AI < AIContainer.transform.childCount) ? RaceParameters.AI : AIContainer.transform.childCount;
 		m_cars = new CarInfo[nbAI + 1];
-		m_cars[0] = m_player.GetComponent<CarInfo>();
+		CarInfo carInfo = m_player.GetComponent<CarInfo>();
+		carInfo.Name = "Player";
+		m_cars[0] = carInfo;
+		
+		// Activates the AI that were indicated by the player
 		for (i = 0; i < nbAI; ++i)
 		{
 			GameObject ai = AIContainer.transform.GetChild(i).gameObject;
 			ai.SetActive(true);
-			m_cars[i + 1] = ai.transform.GetChild(0).GetComponent<CarInfo>();
+			CarInfo ccarInfo = ai.transform.GetChild(0).GetComponent<CarInfo>();
+			ccarInfo.Name = "CPU#" + (i + 1);
+			m_cars[i + 1] = ccarInfo;
 		}
+
+		// Desactivates other AI
 		for (; i < AIContainer.transform.childCount; ++i)
 		{
 			GameObject ai = AIContainer.transform.GetChild(i).gameObject;
@@ -93,10 +102,17 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	public void Restart()
+	{
+		SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+	}
+
 	public void Finish()
 	{
 		m_finished = true;
-		//TO DO
+		m_hud.EndRace(m_cars);
+		m_player.GetComponent<CarAIControl>().enabled = true;
+		m_player.GetComponent<CarUserControl>().enabled = false;
 	}
 
 	public void LoadMenu()
