@@ -12,7 +12,7 @@ namespace UnityStandardAssets.Vehicles.Car
         [SerializeField] private Light TailLightLeftSpot;
         [SerializeField] private Light TailLightRightSpot;
         [SerializeField] private Material brakeLightsOff;
-        private CarController m_Car; // the car controller we want to use
+		private CarController m_Car; // the car controller we want to use
         private CameraController m_Camera;
 		private GameController m_gameController;
 		private Rigidbody m_rigidbody;
@@ -73,7 +73,6 @@ namespace UnityStandardAssets.Vehicles.Car
 				m_Camera.Rotate(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"));
 
 				m_Camera.Switch(Input.GetButton("Mouse Right"));
-
 #if !MOBILE_INPUT
 				float handbrake = Input.GetAxis("Handbreak");
 				m_Car.Move(h, v, v, handbrake);

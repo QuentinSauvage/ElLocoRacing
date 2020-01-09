@@ -3670,6 +3670,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a34b0ad73744822439cad892250a3f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_rightMirror: {fileID: 5636459677362153726}
+  m_middleMirror: {fileID: 5636459678190466049}
+  m_leftMirror: {fileID: 5636459676951441820}
   m_mainCamera: {fileID: 5636459678593561229}
   m_BackupCamera: {fileID: 5636459678502801288}
   m_RotationAngleX: 60
