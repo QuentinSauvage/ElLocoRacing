@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.Networking;
 
 public class Radio : MonoBehaviour
 {
@@ -10,15 +8,16 @@ public class Radio : MonoBehaviour
 	private List<AudioClip> m_clips = new List<AudioClip>();
 	private GameController m_gameController;
 	private bool m_pause = false;
+	private bool m_axisUsed = false;
 
 	private void Awake()
 	{
 		AudioSource source = gameObject.AddComponent<AudioSource>();
 		m_source = source;
 		string[] files = Directory.GetFiles("Assets/Resources/Radio/");
-		foreach(string f in files)
+		foreach (string f in files)
 		{
-			if(f.EndsWith(".mp3")|| f.EndsWith(".wav")||f.EndsWith(".ogg"))
+			if (f.EndsWith(".mp3") || f.EndsWith(".wav") || f.EndsWith(".ogg"))
 			{
 				string[] split = f.Split('/');
 				AudioClip audioClip = Resources.Load<AudioClip>("Radio/" + split[split.Length - 1].Split('.')[0]);
@@ -44,7 +43,7 @@ public class Radio : MonoBehaviour
 		{
 			if (!m_source.isPlaying)
 			{
-				if(m_pause)
+				if (m_pause)
 				{
 					m_source.Play();
 					m_pause = false;
@@ -54,6 +53,39 @@ public class Radio : MonoBehaviour
 					RandomMusic();
 				}
 			}
+		}
+	}
+
+	private void FixedUpdate()
+	{
+		if (Input.GetButtonDown("Next"))
+		{
+			m_source.Stop();
+			RandomMusic();
+		}
+
+		if (Input.GetAxisRaw("Next") != 0)
+		{
+			if (!m_axisUsed)
+			{
+				m_source.Stop();
+				RandomMusic();
+				m_axisUsed = true;
+			}
+		}
+		else
+		{
+			m_axisUsed = false;
+		}
+
+		float volume = Input.GetAxis("VolumeControl");
+		if (volume < 0)
+		{
+			m_source.volume -= 0.01f;
+		}
+		else if (volume > 0)
+		{
+			m_source.volume += 0.01f;
 		}
 	}
 
