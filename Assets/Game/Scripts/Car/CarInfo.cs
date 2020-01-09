@@ -19,7 +19,13 @@ public class CarInfo : MonoBehaviour
 	public int Laps { get=> m_laps; }
 	public int Checkpoints { get => m_checkpoints; }
 
-	public bool IA { get => m_isIA; }
+	public bool IA { 
+		get => m_isIA;
+		set
+		{
+			m_isIA = value;
+		}
+	}
 
 	public string Name
 	{

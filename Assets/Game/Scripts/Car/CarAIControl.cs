@@ -70,7 +70,7 @@ namespace UnityStandardAssets.Vehicles.Car
 		{
 			if(m_started)
 			{
-				if(Vector3.Distance(transform.position, m_lastPosition) < 2 && m_info.Current != null)
+				if(Vector3.Distance(transform.position, m_lastPosition) < 2 && m_info.Current != null && m_info.IA == true)
 				{
 					Vector3 randPosition = new Vector3(Random.Range(-10.0f, 10.0f), 0, Random.Range(-10.0f, 10.0f));
 					randPosition += m_info.Current.transform.position;
