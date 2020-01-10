@@ -37,7 +37,6 @@ public class Tracker : MonoBehaviour
 
 	public int PredictTime(int nbLaps)
 	{
-		Debug.Log(m_nbWaypoints + " _ " + m_waypointIndex + " _ " + nbLaps);
 		return m_nbWaypoints - m_waypointIndex + nbLaps * m_nbWaypoints;
 	}
 }
