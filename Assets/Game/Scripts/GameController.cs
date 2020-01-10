@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 	[SerializeField] private GameObject m_player = null;
 	[SerializeField] private HUDController m_hud = null;
 	[SerializeField] private GameObject m_pauseMenu;
+	[SerializeField] private GameObject m_playerTracker;
 	private CarInfo[] m_cars;
 	private bool m_pause = true;
 	private bool m_canUnpause = false;
@@ -114,6 +115,7 @@ public class GameController : MonoBehaviour
 		m_hud.EndRace(m_cars);
 		m_player.GetComponent<CarAIControl>().enabled = true;
 		m_player.GetComponent<CarUserControl>().enabled = false;
+		m_playerTracker.transform.localScale = new Vector3(15,15,15);
 	}
 
 	public void LoadMenu()
