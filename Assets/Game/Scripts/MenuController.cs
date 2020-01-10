@@ -11,9 +11,9 @@ public struct Track
 
 public class MenuController : MonoBehaviour
 {
-	private int[] lapsValues = new int[] {1,3,5,-1};
+	private int[] lapsValues = new int[] {1,2,3,5,-1};
 	private int[] modesValues = new int[] {0,1,2,3,4,5,6,7,8};
-	private string[] laps = new string[] {"1 lap", "3 laps", "5 laps", "Infinite"};
+	private string[] laps = new string[] {"1 lap", "2 laps", "3 laps", "5 laps", "Infinite"};
 	private List<string> tracks = new List<string>();
 	private string[] modes = new string[] { "Time Attack", "1 CPU", "2 CPU", "3 CPU", "4 CPU", "5 CPU", "6 CPU", "7 CPU", "8 CPU"};
 	private int tracksIndex = 0;
@@ -26,11 +26,9 @@ public class MenuController : MonoBehaviour
 	private void Awake()
 	{
 		//need to retrieve all existing tracks in a list of tracks
-		tracks.Add("Track1");
-		tracks.Add("Track2");
-		//tracksText.text = tracks[0];
-		//modesText.text = modes[0];
-		//lapsText.text = laps[0];
+		tracks.Add("Savoie");
+		tracks.Add("Limousin");
+		tracksText.text = tracks[0];
 	}
 
 	public void OnDisplayRace()

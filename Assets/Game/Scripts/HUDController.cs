@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HUDController : MonoBehaviour
 {
@@ -57,6 +59,11 @@ public class HUDController : MonoBehaviour
 			}
 		}
 
+		public float Value()
+		{
+			return minutes * 60000 + seconds * 1000 + milliseconds;
+		}
+
 		public void Reset()
 		{
 			minutes = seconds = milliseconds = 0;
@@ -83,12 +90,15 @@ public class HUDController : MonoBehaviour
 	[SerializeField] private GameObject player = null;
 	[SerializeField] private GameObject m_endInfo = null;
 	[SerializeField] private GameObject m_finishText = null;
-	private Timer m_bestTimer;
+	[SerializeField] private TextMeshProUGUI m_bestLapMin = null;
+	[SerializeField] private TextMeshProUGUI m_bestLapSec = null;
+	[SerializeField] private TextMeshProUGUI m_bestLapMil = null;
 	private TextMeshProUGUI m_currentLapText;
 	private TextMeshProUGUI m_currentPositionText;
 	private int m_nbLaps;
 	private CarInfo m_playerInfo;
 	private GameController m_gameController;
+	private float m_bestValue = 0;
 
 	private void Awake()
 	{
@@ -128,6 +138,35 @@ public class HUDController : MonoBehaviour
 		}
 		m_currentPositionText = m_currentPositionUI.GetComponent<TextMeshProUGUI>();
 		m_currentPositionText.text = "01";
+
+		string path = "Assets/Resources/" + SceneManager.GetActiveScene().name + "_best.txt";		
+		using (BinaryReader file = new BinaryReader(File.Open(path, FileMode.OpenOrCreate)))
+		{
+			string line;
+			if (file.PeekChar() != -1)
+			{
+				line = file.ReadString();
+				if(line.Length > 0)
+				{
+					float mil = float.Parse(line);
+					m_bestValue = mil;
+					float min = Mathf.Floor((mil / 60000));
+					mil -= min * 60000;
+					float sec = Mathf.Floor((mil / 1000));
+					mil -= sec * 1000;
+					mil = Mathf.Floor(mil) % 100;
+					m_bestLapMin.text = (min > 9) ? min.ToString("F0") + ':' : '0' + min.ToString("F0");
+					m_bestLapSec.text = (sec > 9) ? sec.ToString("F0") + '.' : '0' + sec.ToString("F0");
+					m_bestLapMil.text = (mil> 9) ? mil.ToString("F0") : '0' + mil.ToString("F0");
+				}
+			}
+			else
+			{
+				m_bestLapMin.text = "00:";
+				m_bestLapSec.text = "00.";
+				m_bestLapMil.text = "00";
+			}
+		}
 	}
 
 	void Update()
@@ -192,10 +231,24 @@ public class HUDController : MonoBehaviour
 		DisplayEndScreen(cars);
 	}
 
+	public void SaveBest(float best)
+	{
+		string path = "Assets/Resources/" + SceneManager.GetActiveScene().name + "_best.txt";
+		using (BinaryWriter file = new BinaryWriter(File.Open(path, FileMode.Open)))
+		{
+			file.Write(best.ToString());
+		}
+	}
+
 	public void EndRace(CarInfo[] cars)
 	{
 		m_finishText.SetActive(true);
 		m_playerInfo.IA = true;
+		float totalTime = m_raceTimer.Value();
+		if(totalTime > m_bestValue)
+		{
+			SaveBest(totalTime);
+		}
 		StartCoroutine(WaitEndScreen(cars));
 	}
 }

@@ -5,10 +5,11 @@ using UnityEngine;
 public class MapCursor : MonoBehaviour
 {
 	public GameObject m_car;
+	public bool ai;
     // Start is called before the first frame update
     void Start()
     {
-        if(!m_car.activeSelf)
+		if((!ai && !m_car.activeSelf) || (ai && m_car.transform.parent.gameObject.activeSelf))
 		{
 			gameObject.SetActive(false);
 		}
