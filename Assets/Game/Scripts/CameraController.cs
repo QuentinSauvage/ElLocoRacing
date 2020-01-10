@@ -5,7 +5,8 @@ namespace UnityStandardAssets.Vehicles.Car
     [RequireComponent(typeof(CameraController))]
     public class CameraController : MonoBehaviour
     {
-        private CarController m_Car; // the car controller we want to use
+		[SerializeField] private Camera m_middleMirror;
+		private CarController m_Car; // the car controller we want to use
 		private GameController m_gameController;
 		public Camera m_mainCamera;
         public Camera m_BackupCamera;
@@ -46,12 +47,13 @@ namespace UnityStandardAssets.Vehicles.Car
                 xMove = 0;
 
             m_mainCamera.transform.Rotate(-yMove, xMove, 0);
-        }
+		}
 
-        public void Switch(bool keyPressed)
+		public void Switch(bool keyPressed)
         {
-            m_mainCamera.gameObject.SetActive(!keyPressed);
-            m_BackupCamera.gameObject.SetActive(keyPressed);
+			m_middleMirror.gameObject.SetActive(!keyPressed);
+			m_mainCamera.gameObject.SetActive(!keyPressed);
+			m_BackupCamera.gameObject.SetActive(keyPressed);
         }
     }
 }
