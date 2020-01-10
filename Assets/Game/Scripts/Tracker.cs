@@ -28,7 +28,6 @@ public class Tracker : MonoBehaviour
 		{
 			CarInfo carInfo = collision.transform.parent.parent.GetComponent<CarInfo>();
 			carInfo.Current = m_waypoints[m_waypointIndex].gameObject;
-			Debug.Log(carInfo.Current);
 			m_waypointIndex = (m_waypointIndex + 1) % m_nbWaypoints;
 			carInfo.NextWaypoint = m_waypoints[m_waypointIndex].gameObject;
 			transform.position = m_waypoints[m_waypointIndex].position;
@@ -37,7 +36,6 @@ public class Tracker : MonoBehaviour
 
 	public int PredictTime(int nbLaps)
 	{
-		Debug.Log(m_nbWaypoints + " _ " + m_waypointIndex + " _ " + nbLaps);
 		return m_nbWaypoints - m_waypointIndex + nbLaps * m_nbWaypoints;
 	}
 }

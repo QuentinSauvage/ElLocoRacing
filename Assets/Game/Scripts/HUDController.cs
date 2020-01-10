@@ -139,32 +139,36 @@ public class HUDController : MonoBehaviour
 		m_currentPositionText = m_currentPositionUI.GetComponent<TextMeshProUGUI>();
 		m_currentPositionText.text = "01";
 
-		string path = "Assets/Resources/" + SceneManager.GetActiveScene().name + "_best.txt";		
-		using (BinaryReader file = new BinaryReader(File.Open(path, FileMode.OpenOrCreate)))
+		
+		if(Application.isEditor && !Application.isPlaying)
 		{
-			string line;
-			if (file.PeekChar() != -1)
+			string path = "Assets/Resources/" + SceneManager.GetActiveScene().name + "_best.txt";
+			using (BinaryReader file = new BinaryReader(File.Open(path, FileMode.OpenOrCreate)))
 			{
-				line = file.ReadString();
-				if(line.Length > 0)
+				string line;
+				if (file.PeekChar() != -1)
 				{
-					float mil = float.Parse(line);
-					m_bestValue = mil;
-					float min = Mathf.Floor((mil / 60000));
-					mil -= min * 60000;
-					float sec = Mathf.Floor((mil / 1000));
-					mil -= sec * 1000;
-					mil = Mathf.Floor(mil) % 100;
-					m_bestLapMin.text = (min > 9) ? min.ToString("F0") + ':' : '0' + min.ToString("F0");
-					m_bestLapSec.text = (sec > 9) ? sec.ToString("F0") + '.' : '0' + sec.ToString("F0");
-					m_bestLapMil.text = (mil> 9) ? mil.ToString("F0") : '0' + mil.ToString("F0");
+					line = file.ReadString();
+					if(line.Length > 0)
+					{
+						float mil = float.Parse(line);
+						m_bestValue = mil;
+						float min = Mathf.Floor((mil / 60000));
+						mil -= min * 60000;
+						float sec = Mathf.Floor((mil / 1000));
+						mil -= sec * 1000;
+						mil = Mathf.Floor(mil) % 100;
+						m_bestLapMin.text = (min > 9) ? min.ToString("F0") + ':' : '0' + min.ToString("F0");
+						m_bestLapSec.text = (sec > 9) ? sec.ToString("F0") + '.' : '0' + sec.ToString("F0");
+						m_bestLapMil.text = (mil> 9) ? mil.ToString("F0") : '0' + mil.ToString("F0");
+					}
 				}
-			}
-			else
-			{
-				m_bestLapMin.text = "00:";
-				m_bestLapSec.text = "00.";
-				m_bestLapMil.text = "00";
+				else
+				{
+					m_bestLapMin.text = "00:";
+					m_bestLapSec.text = "00.";
+					m_bestLapMil.text = "00";
+				}
 			}
 		}
 	}
@@ -245,9 +249,12 @@ public class HUDController : MonoBehaviour
 		m_finishText.SetActive(true);
 		m_playerInfo.IA = true;
 		float totalTime = m_raceTimer.Value();
-		if(totalTime > m_bestValue)
+		if (Application.isEditor && !Application.isPlaying)
 		{
-			SaveBest(totalTime);
+			if (totalTime > m_bestValue)
+			{
+				SaveBest(totalTime);
+			}
 		}
 		StartCoroutine(WaitEndScreen(cars));
 	}
