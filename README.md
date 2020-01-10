@@ -1,6 +1,6 @@
 # ElLocoRacing
 
-_El Loco Racing_ is a racing game made during the 2nd year of master.
+_El Loco Racing_ is a racing game made under Unity during the 2nd year of master (November 2019 - December 2020), by Emile Romon and Quentin Sauvage.
 
 ### Controls
 
@@ -29,4 +29,4 @@ R / Y (controller) : Restart to the last checkpoint
 
 Sometimes, when the car turns, the wheels are stuck. If this happens, try to brake and it should work.
 
-For now, the best time of the player can only be seen while playing in the editor. When this will be fixed, it will be possible for the player to import its own musics by copying it in the _Radio_ folder.
+For now, the best time of the player can only be seen while playing in the editor. When this will be fixed, it will be possible for the player to import its own musics by copying them in the _Radio_ folder.
