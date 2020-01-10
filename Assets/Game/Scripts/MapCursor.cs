@@ -9,7 +9,7 @@ public class MapCursor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		if((!ai && !m_car.activeSelf) || (ai && m_car.transform.parent.gameObject.activeSelf))
+		if((!ai && !m_car.activeSelf) || (ai && !m_car.transform.parent.gameObject.activeSelf))
 		{
 			gameObject.SetActive(false);
 		}

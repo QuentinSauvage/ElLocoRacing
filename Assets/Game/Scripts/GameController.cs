@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
 			m_cars[i + 1] = ccarInfo;
 		}
 
-		// Desactivates other AI
+		// Deactivates other AI
 		for (; i < AIContainer.transform.childCount; ++i)
 		{
 			GameObject ai = AIContainer.transform.GetChild(i).gameObject;
