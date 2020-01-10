@@ -5,7 +5,7 @@ using UnityEngine;
 public class Radio : MonoBehaviour
 {
 	private AudioSource m_source;
-	private List<AudioClip> m_clips = new List<AudioClip>();
+	[SerializeField] private List<AudioClip> m_clips;
 	private GameController m_gameController;
 	private bool m_pause = false;
 	private bool m_axisUsed = false;
@@ -14,7 +14,7 @@ public class Radio : MonoBehaviour
 	{
 		AudioSource source = gameObject.AddComponent<AudioSource>();
 		m_source = source;
-		string[] files = Directory.GetFiles("Assets/Resources/Radio/");
+		/*string[] files = Directory.GetFiles("Assets/Resources/Radio/");
 		foreach (string f in files)
 		{
 			if (f.EndsWith(".mp3") || f.EndsWith(".wav") || f.EndsWith(".ogg"))
@@ -23,7 +23,10 @@ public class Radio : MonoBehaviour
 				AudioClip audioClip = Resources.Load<AudioClip>("Radio/" + split[split.Length - 1].Split('.')[0]);
 				m_clips.Add(audioClip);
 			}
-		}
+		}*/
+
+
+
 		m_gameController = GameObject.Find("Controller").GetComponent<GameController>();
 	}
 
