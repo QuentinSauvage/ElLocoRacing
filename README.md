@@ -22,4 +22,4 @@ Space : Car horn
 
 Left shift / X (controller) : Handbrake
 
-R : Y (controller) : Restart to the last checkpoint
+R / Y (controller) : Restart to the last checkpoint
