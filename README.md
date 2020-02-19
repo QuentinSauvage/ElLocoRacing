@@ -1,5 +1,7 @@
 # ElLocoRacing
 
+__⚠ Sound may be too loud, be careful. ⚠__
+
 _El Loco Racing_ is a racing game made under Unity during the 2nd year of master (November 2019 - December 2020), by Emile Romon and Quentin Sauvage.
 
 ### Controls
