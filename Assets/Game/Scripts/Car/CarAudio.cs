@@ -141,13 +141,19 @@ namespace UnityStandardAssets.Vehicles.Car
                     float lowFade = 1 - highFade;
 
                     // adjust the values to be more realistic
-                    highFade = 1 - ((1 - highFade)*(1 - highFade));
-                    lowFade = 1 - ((1 - lowFade)*(1 - lowFade));
-                    accFade = 1 - ((1 - accFade)*(1 - accFade));
-                    decFade = 1 - ((1 - decFade)*(1 - decFade));
+                    float distanceToPlayer = Vector3.Distance(Camera.main.transform.position, transform.position);
+                    float distanceFallOff = distanceToPlayer / maxRolloffDistance;
+                    highFade = 1 - ((1 - highFade)*(1 - highFade)) - distanceFallOff;
+                    highFade = Math.Max(highFade, 0);
+                    lowFade = 1 - ((1 - lowFade)*(1 - lowFade)) - distanceFallOff;
+					lowFade = Math.Max(lowFade, 0);
+					accFade = 1 - ((1 - accFade)*(1 - accFade)) - distanceFallOff;
+					accFade = Math.Max(accFade, 0);
+					decFade = 1 - ((1 - decFade)*(1 - decFade)) - distanceFallOff;
+					decFade = Math.Max(decFade, 0);
 
-                    // adjust the source volumes based on the fade values
-                    m_LowAccel.volume = lowFade*accFade;
+					// adjust the source volumes based on the fade values
+					m_LowAccel.volume = lowFade*accFade;
                     m_LowDecel.volume = lowFade*decFade;
                     m_HighAccel.volume = highFade*accFade;
                     m_HighDecel.volume = highFade*decFade;
